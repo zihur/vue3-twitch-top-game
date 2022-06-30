@@ -1,26 +1,26 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import GameCard from '../GameCard.vue';
-import LoadingAnimation from '../LoadingAnimation.vue';
-import { shuffle, trimEmptyURLParams } from '/src/utils/index';
+import { onMounted, ref } from "vue";
+import GameCard from "../GameCard.vue";
+import LoadingAnimation from "../LoadingAnimation.vue";
+import { shuffle, trimEmptyURLParams } from "/src/utils/index";
 
 const recommendGames = ref([]);
 const foundGames = ref([]);
-const searchVal = ref('');
+const searchVal = ref("");
 const isTryFounded = ref(false);
 const isLoading = ref(false);
 const fetchRecommendGames = async () => {
-  const res = await fetch('https://api.twitch.tv/helix/games/top', {
+  const res = await fetch("https://api.twitch.tv/helix/games/top", {
     headers: {
-      "Authorization": "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
-      "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd"
-    }
+      Authorization: "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
+      "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
+    },
   });
   const json = await res.json();
   const tempArr = json.data.slice(3);
-  shuffle(tempArr)
+  shuffle(tempArr);
   for (let i = 0; i < 5; i++) {
-    recommendGames.value.push(tempArr[i])
+    recommendGames.value.push(tempArr[i]);
   }
   recommendGames.value.forEach((game) => {
     game.box_art_url = game.box_art_url.replace("{width}", "188");
@@ -29,31 +29,34 @@ const fetchRecommendGames = async () => {
     // 假定原始資料為 41 ~ 100，轉為星星數
     const rate = Math.random() * 60 + 41;
     const starCount = Math.floor(rate / 20);
-    const starHalfCount = (rate % 20) >= 10 ? 1 : 0;
+    const starHalfCount = rate % 20 >= 10 ? 1 : 0;
     game.starCount = starCount;
     game.starHalfCount = starHalfCount;
     game.starEmptyCount = 5 - starCount - starHalfCount;
-  })
-}
+  });
+};
 
-const fetchGames = async (name = '') => {
+const fetchGames = async (name = "") => {
   const urlSearchParams = new URLSearchParams({
     name: name,
   });
   trimEmptyURLParams(urlSearchParams);
-  const res = await fetch('https://api.twitch.tv/helix/games?' + urlSearchParams, {
-    headers: {
-      "Authorization": "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
-      "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd"
+  const res = await fetch(
+    "https://api.twitch.tv/helix/games?" + urlSearchParams,
+    {
+      headers: {
+        Authorization: "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
+        "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
+      },
     }
-  });
+  );
   const json = await res.json();
   return json;
-}
+};
 
 const typeSearch = (e) => {
   searchVal.value = e.target.value;
-}
+};
 
 const submit = async () => {
   if (!searchVal.value) return;
@@ -63,25 +66,25 @@ const submit = async () => {
   foundGames.value.forEach((game) => {
     game.box_art_url = game.box_art_url.replace("{width}", "188");
     game.box_art_url = game.box_art_url.replace("{height}", "250");
-  })
+  });
   isTryFounded.value = true;
   isLoading.value = false;
-  searchVal.value = '';
-}
+  searchVal.value = "";
+};
 
 onMounted(async () => {
-  await fetchRecommendGames()
-})
+  await fetchRecommendGames();
+});
 </script>
 
 <template>
-  <input type="checkbox" name="" id="aside-switch">
+  <input type="checkbox" name="" id="aside-switch" />
   <aside>
     <div class="aside__container">
       <div class="search--wrapper">
         <h3>Find Other Games</h3>
         <form class="search" @submit.prevent="submit($event)">
-          <input type="search" :value="searchVal" @input="typeSearch($event)">
+          <input type="search" :value="searchVal" @input="typeSearch($event)" />
           <button type="submit">
             <font-awesome-icon icon="fa-solid fa-magnifying-glass" />
           </button>
@@ -96,19 +99,27 @@ onMounted(async () => {
         </p>
         <LoadingAnimation v-if="isLoading" />
       </div>
-      <hr>
+      <hr />
       <div>
         <h3>Recommend Games</h3>
-        <GameCard v-for="recommendGame in recommendGames" :game="recommendGame" :key="recommendGame.id"/>
+        <GameCard
+          v-for="recommendGame in recommendGames"
+          :game="recommendGame"
+          :key="recommendGame.id"
+        />
       </div>
     </div>
   </aside>
   <label for="aside-switch" class="aside__switch">
-    <font-awesome-icon icon="fa-solid fa-chevron-right" transform="right-4" beat />
+    <font-awesome-icon
+      icon="fa-solid fa-chevron-right"
+      transform="right-4"
+      beat
+    />
   </label>
 </template>
 <style>
-@import '/src/assets/base.css';
+@import "/src/assets/base.css";
 
 aside {
   flex-shrink: 0;
@@ -136,20 +147,20 @@ aside:hover::-webkit-scrollbar-thumb {
 }
 
 aside:hover::-webkit-scrollbar-thumb:hover {
-  background: rgba(209, 209, 209, .5);
+  background: rgba(209, 209, 209, 0.5);
 }
 
 #aside-switch {
   display: none;
 }
 
-#aside-switch:checked~aside {
+#aside-switch:checked ~ aside {
   width: var(--aside-width);
   padding: 1rem;
   transform: translateX(0);
 }
 
-#aside-switch:checked~.aside__switch {
+#aside-switch:checked ~ .aside__switch {
   left: var(--aside-width);
   transform: rotate(180deg);
 }
@@ -168,14 +179,14 @@ aside:hover::-webkit-scrollbar-thumb:hover {
 }
 
 .aside__container p {
-  margin: .3rem 0;
+  margin: 0.3rem 0;
 }
 
 h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  margin-top: .5rem;
-  margin-bottom: .5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .search--wrapper {
@@ -193,7 +204,7 @@ h3 {
   border: none;
 }
 
-.search input[type='search'] {
+.search input[type="search"] {
   width: 100%;
   outline-style: none;
   border-radius: 3px 0 0 3px;

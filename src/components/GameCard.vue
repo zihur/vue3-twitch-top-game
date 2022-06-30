@@ -1,39 +1,37 @@
 <script setup>
-import { ref } from 'vue';
-import { useStore } from 'vuex';
-import RateStar from './aside/RateStar.vue';
+import { ref } from "vue";
+import { useStore } from "vuex";
+import RateStar from "./aside/RateStar.vue";
 
-const store = useStore()
+const store = useStore();
 const props = defineProps({
   game: Object,
-})
+});
 const fakeTags = ref([
-  '手機遊戲',
-  '卡牌與桌遊',
-  '射擊',
-  '冒險遊戲',
-  'FPS',
-  '動作',
-  'RPG',
-  '街機',
-  '運動',
-  '節奏與音樂遊戲',
-  '手機遊戲',
-  '派對',
+  "手機遊戲",
+  "卡牌與桌遊",
+  "射擊",
+  "冒險遊戲",
+  "FPS",
+  "動作",
+  "RPG",
+  "街機",
+  "運動",
+  "節奏與音樂遊戲",
+  "手機遊戲",
+  "派對",
 ]);
 
-const randomIndex = (arr) => {
-  return Math.floor(Math.random() * arr.length)
-}
+const randomIndex = (arr) => Math.floor(Math.random() * arr.length);
 
 const chooseGame = (game) => {
-  store.dispatch('setChosenGame', { gameId: game.id, gameTitle: game.name })
-}
+  store.dispatch("setChosenGame", { gameId: game.id, gameTitle: game.name });
+};
 </script>
 
 <template>
   <div class="game-card" @click="chooseGame(props.game)">
-    <img :src="game.box_art_url" alt="" class="game-card__img">
+    <img :src="game.box_art_url" alt="" class="game-card__img" />
     <div class="game-card__info">
       <div class="game-card__title" :title="game.name">{{ game.name }}</div>
       <RateStar class="game-card__rate" :game="game" />
@@ -58,13 +56,13 @@ const chooseGame = (game) => {
 .game-card__img {
   display: block;
   width: 100%;
-  margin-bottom: 0 auto .3rem auto;
+  margin-bottom: 0 auto 0.3rem auto;
 }
 
 .game-card__info {
   display: flex;
   justify-content: space-between;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .game-card__title {
@@ -83,7 +81,7 @@ const chooseGame = (game) => {
 }
 
 .game-tag__item {
-  font-size: .8rem;
+  font-size: 0.8rem;
   background-color: rgb(166, 166, 166);
   border-radius: 999px;
   padding: 0 7px;

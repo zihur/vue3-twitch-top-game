@@ -1,14 +1,13 @@
 <script setup>
-import StreamCard from './components/StreamCard.vue';
-import NavBar from './components/header/NavBar.vue';
-import AsideFeatures from './components/aside/AsideFeatures.vue';
-import { computed } from '@vue/reactivity';
-import { useStore } from 'vuex';
+import StreamCard from "./components/StreamCard.vue";
+import NavBar from "./components/header/NavBar.vue";
+import AsideFeatures from "./components/aside/AsideFeatures.vue";
+import { computed } from "@vue/reactivity";
+import { useStore } from "vuex";
 
-const store = useStore()
+const store = useStore();
 const gameId = computed(() => store.state.chosenGame.id);
 const gameTitle = computed(() => store.state.chosenGame.title);
-
 </script>
 
 <template>
@@ -27,7 +26,8 @@ const gameTitle = computed(() => store.state.chosenGame.title);
   </main>
   <footer>
     <p class="footer">
-      This page is created by <a href="#">me</a> - <a href="#">View on Github</a>
+      This page is created by <a href="#">me</a> -
+      <a href="#">View on Github</a>
     </p>
   </footer>
 </template>

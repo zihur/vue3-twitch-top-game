@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div class="loading">
@@ -23,7 +22,7 @@
   background-color: #ffffff;
   border-radius: 100%;
   animation: loading-bounce;
-  animation-duration: .7s;
+  animation-duration: 0.7s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
   animation-direction: alternate-reverse;
