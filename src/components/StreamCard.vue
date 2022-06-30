@@ -1,7 +1,8 @@
 <script setup>
-import { onMounted, onUnmounted, reactive, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { throttle, trimEmptyURLParams } from '../utils/index'
 import LoadingAnimation from './LoadingAnimation.vue';
+
 const props = defineProps({
   gameId: String
 })
@@ -29,6 +30,10 @@ const fetchStreams = async (limit = 24) => {
   const res = await fetch('https://api.twitch.tv/helix/streams?' + urlSearchParams, {
     headers: { ...twitchAuthHeaders },
   });
+  if(res.status < 200 || res.status >= 300) {
+    isLoading.value = false;
+    return;
+  }
   const json = await res.json();
   streams = json.data;
   pageCursor = json.pagination.cursor;
@@ -183,5 +188,4 @@ onUnmounted(() => {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-
 </style>

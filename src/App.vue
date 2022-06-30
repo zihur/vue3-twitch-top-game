@@ -1,21 +1,18 @@
 <script setup>
 import StreamCard from './components/StreamCard.vue';
-import { ref } from 'vue'
 import NavBar from './components/header/NavBar.vue';
 import AsideFeatures from './components/aside/AsideFeatures.vue';
+import { computed } from '@vue/reactivity';
+import { useStore } from 'vuex';
 
-const gameId = ref('');
-const gameTitle = ref('Twitch Live Games');
-
-const changeGame = (id, title) => {
-  gameId.value = id;
-  gameTitle.value = title;
-}
+const store = useStore()
+const gameId = computed(() => store.state.chosenGame.id);
+const gameTitle = computed(() => store.state.chosenGame.title);
 
 </script>
 
 <template>
-  <NavBar @change-game="changeGame" />
+  <NavBar />
   <main>
     <AsideFeatures />
     <div class="stream-list">

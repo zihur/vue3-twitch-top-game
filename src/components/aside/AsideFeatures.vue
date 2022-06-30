@@ -3,9 +3,7 @@ import { onMounted, ref } from 'vue';
 import GameCard from '../GameCard.vue';
 import LoadingAnimation from '../LoadingAnimation.vue';
 import { shuffle, trimEmptyURLParams } from '/src/utils/index';
-undefined
 
-const emit = defineEmits({})
 const recommendGames = ref([]);
 const foundGames = ref([]);
 const searchVal = ref('');

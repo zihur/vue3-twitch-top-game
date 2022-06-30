@@ -1,7 +1,9 @@
 <script setup>
-import { inject, reactive, ref } from 'vue';
+import { ref } from 'vue';
+import { useStore } from 'vuex';
 import RateStar from './aside/RateStar.vue';
 
+const store = useStore()
 const props = defineProps({
   game: Object,
 })
@@ -24,15 +26,13 @@ const randomIndex = (arr) => {
   return Math.floor(Math.random() * arr.length)
 }
 
-// const chooseGame = () => {
-//   chosenGameId.value = topGame.id;
-//   emit('changeGame', topGame.id, topGame.name)
-// }
-
+const chooseGame = (game) => {
+  store.dispatch('setChosenGame', { gameId: game.id, gameTitle: game.name })
+}
 </script>
 
 <template>
-  <div class="game-card" @click="chooseGame">
+  <div class="game-card" @click="chooseGame(props.game)">
     <img :src="game.box_art_url" alt="" class="game-card__img">
     <div class="game-card__info">
       <div class="game-card__title" :title="game.name">{{ game.name }}</div>
@@ -52,6 +52,7 @@ const randomIndex = (arr) => {
   font-weight: 600;
   width: 100%;
   margin: 1rem auto 1rem auto;
+  cursor: pointer;
 }
 
 .game-card__img {

@@ -1,17 +1,16 @@
 <script setup>
+import { computed } from '@vue/reactivity';
 import { onMounted, ref } from 'vue';
-const emit = defineEmits({
-  changeGame: null
-})
+import { useStore } from 'vuex';
 
+const store = useStore();
 const topGames = ref([]);
-const chosenGameId = ref('');
 const nav = ref(null);
 
 const navItemClass = (gameId) => {
   return {
     'navbar__item': true,
-    'navbar__item--active': gameId === chosenGameId.value
+    'navbar__item--active': gameId === computed(() => store.state.chosenGame.id).value,
   }
 }
 
@@ -28,9 +27,8 @@ const fetchTopGames = async () => {
   topGames.value = json.data;
 }
 
-const chooseGame = (topGame, e) => {
-  chosenGameId.value = topGame.id;
-  emit('changeGame', topGame.id, topGame.name)
+const chooseGame = (topGame) => {
+  store.dispatch('setChosenGame', { gameId: topGame.id, gameTitle: topGame.name })
 }
 
 onMounted(async () => {
@@ -51,7 +49,7 @@ onMounted(async () => {
       </div>
     </label>
     <ul class="navbar__list">
-      <li v-for="topGame in topGames" :key="topGame.id" @click="chooseGame(topGame, $event)"
+      <li v-for="topGame in topGames" :key="topGame.id" @click="chooseGame(topGame)"
         :class="navItemClass(topGame.id)">
         {{ topGame.name }}
       </li>
