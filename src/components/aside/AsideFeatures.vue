@@ -12,7 +12,7 @@ const isLoading = ref(false);
 const fetchRecommendGames = async () => {
   const res = await fetch("https://api.twitch.tv/helix/games/top", {
     headers: {
-      Authorization: "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
+      Authorization: "Bearer knsypx5wbc5ep7190ieqjnr98c4r86",
       "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
     },
   });
@@ -45,7 +45,7 @@ const fetchGames = async (name = "") => {
     "https://api.twitch.tv/helix/games?" + urlSearchParams,
     {
       headers: {
-        Authorization: "Bearer 7e3jk12b7yf1keggtqj7d39mas4yfj",
+        Authorization: "Bearer knsypx5wbc5ep7190ieqjnr98c4r86",
         "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
       },
     }
