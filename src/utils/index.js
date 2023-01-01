@@ -1,4 +1,4 @@
-export * from './performce'
+export * from './performance'
 export * from './url-param'
 
 export const shuffle = (arr) => {

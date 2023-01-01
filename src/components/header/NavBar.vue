@@ -20,7 +20,7 @@ const reloadPage = () => location.reload();
 const fetchTopGames = async () => {
   const res = await fetch("https://api.twitch.tv/helix/games/top?first=3", {
     headers: {
-      Authorization: "Bearer knsypx5wbc5ep7190ieqjnr98c4r86",
+      Authorization: "Bearer 7vovubfasy408lohz2gf5n113kxxyq",
       "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
     },
   });
