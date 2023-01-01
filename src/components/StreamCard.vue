@@ -11,7 +11,7 @@ const isLoading = ref(true);
 
 let pageCursor = "";
 const twitchAuthHeaders = {
-  Authorization: "Bearer 7vovubfasy408lohz2gf5n113kxxyq",
+  Authorization: "Bearer 1v66w9q14030rugda8f2k9lk6kbj5a",
   "Client-Id": "u2i5e5oy5cwidtrgmt44nf110ty1vd",
 };
 
